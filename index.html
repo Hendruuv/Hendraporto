@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — [Nama Kamu]</title>
+<meta name="description" content="Fotografer, videografer, dan content creator berbasis di Jakarta.">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --coral: #D85A30;
+    --coral-light: #FAECE7;
+    --yellow: #EF9F27;
+    --yellow-light: #FAEEDA;
+    --teal: #1D9E75;
+    --teal-light: #E1F5EE;
+    --purple: #534AB7;
+    --purple-light: #EEEDFE;
+    --ink: #1a1a1a;
+    --cream: #FAF8F3;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; cursor: none; }
+
+  .cursor { width: 12px; height: 12px; background: var(--coral); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.15s ease; transform: translate(-50%, -50%); }
+  .cursor-ring { width: 36px; height: 36px; border: 2px solid var(--coral); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transition: all 0.2s ease; transform: translate(-50%, -50%); opacity: 0.5; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; z-index: 100; background: rgba(250,248,243,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.06); }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; letter-spacing: -0.02em; text-decoration: none; color: var(--ink); }
+  .logo span { color: var(--coral); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--ink); font-size: 0.9rem; font-weight: 300; letter-spacing: 0.04em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--coral); }
+
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 3rem 4rem; position: relative; overflow: hidden; }
+  .hero-bg-shape { position: absolute; border-radius: 50%; opacity: 0.12; animation: float 6s ease-in-out infinite; }
+  .shape1 { width: 500px; height: 500px; background: var(--coral); top: -100px; right: -100px; animation-delay: 0s; }
+  .shape2 { width: 300px; height: 300px; background: var(--yellow); bottom: 50px; left: -80px; animation-delay: -2s; }
+  .shape3 { width: 200px; height: 200px; background: var(--teal); top: 200px; left: 40%; animation-delay: -4s; }
+  @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-30px) rotate(10deg); } }
+
+  .hero-content { max-width: 700px; position: relative; z-index: 2; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--teal-light); color: var(--teal); padding: 6px 16px; border-radius: 100px; font-size: 0.82rem; font-weight: 400; letter-spacing: 0.06em; margin-bottom: 1.5rem; animation: slideIn 0.6s ease both; }
+  .hero-tag::before { content: ''; width: 8px; height: 8px; background: var(--teal); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.7); } }
+
+  h1 { font-family: 'Syne', sans-serif; font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 1.5rem; animation: slideIn 0.6s ease 0.1s both; }
+  h1 .highlight { color: var(--coral); position: relative; display: inline-block; }
+  h1 .highlight::after { content: ''; position: absolute; bottom: 4px; left: 0; right: 0; height: 6px; background: var(--yellow); opacity: 0.5; border-radius: 2px; z-index: -1; }
+
+  .hero-desc { font-size: 1.1rem; font-weight: 300; line-height: 1.8; color: #555; max-width: 480px; margin-bottom: 2.5rem; animation: slideIn 0.6s ease 0.2s both; }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; animation: slideIn 0.6s ease 0.3s both; }
+  .btn-primary { padding: 0.9rem 2rem; background: var(--ink); color: white; border: none; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; cursor: none; transition: all 0.2s ease; text-decoration: none; display: inline-block; }
+  .btn-primary:hover { background: var(--coral); transform: translateY(-2px); }
+  .btn-secondary { padding: 0.9rem 2rem; background: transparent; color: var(--ink); border: 1.5px solid var(--ink); border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; cursor: none; transition: all 0.2s ease; text-decoration: none; display: inline-block; }
+  .btn-secondary:hover { border-color: var(--coral); color: var(--coral); transform: translateY(-2px); }
+
+  .scroll-indicator { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: #888; font-size: 0.75rem; letter-spacing: 0.1em; animation: fadeInUp 1s ease 1s both; }
+  .scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom, transparent, #888); animation: lineGrow 1.5s ease-in-out infinite; }
+  @keyframes lineGrow { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 50.01% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+
+  .marquee-section { overflow: hidden; padding: 1.2rem 0; background: var(--coral); }
+  .marquee-track { display: flex; gap: 2rem; animation: marquee 20s linear infinite; white-space: nowrap; }
+  .marquee-item { display: flex; align-items: center; gap: 1.5rem; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.06em; color: white; flex-shrink: 0; }
+  .marquee-dot { color: rgba(255,255,255,0.5); }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  section { padding: 6rem 3rem; }
+  .section-label { font-size: 0.8rem; letter-spacing: 0.15em; color: #999; text-transform: uppercase; margin-bottom: 1rem; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 3rem; }
+
+  .works-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .work-card { border-radius: 16px; overflow: hidden; position: relative; cursor: none; transition: transform 0.3s ease; }
+  .work-card:hover { transform: scale(1.02); }
+  .work-card.large { grid-column: span 7; }
+  .work-card.medium { grid-column: span 5; }
+  .work-card.wide { grid-column: span 6; }
+  .work-img { width: 100%; min-height: 280px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .work-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .work-img-placeholder { width: 100%; min-height: 280px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; color: rgba(255,255,255,0.2); font-size: 0.8rem; letter-spacing: 0.1em; }
+  .work-img-placeholder svg { opacity: 0.2; margin-bottom: 4px; }
+  .bg-dark1 { background: #1a1a2e; } .bg-dark2 { background: #2d1b69; } .bg-dark3 { background: #0d2137; } .bg-dark4 { background: #1a2e1a; }
+  .work-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%); padding: 1.5rem; display: flex; flex-direction: column; justify-content: flex-end; opacity: 0; transition: opacity 0.3s ease; }
+  .work-card:hover .work-overlay { opacity: 1; }
+  .work-tag { display: inline-block; padding: 4px 12px; border-radius: 100px; font-size: 0.72rem; letter-spacing: 0.08em; background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); backdrop-filter: blur(4px); margin-bottom: 0.5rem; align-self: flex-start; }
+  .work-title-card { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: white; }
+  .work-badge { position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 6px 14px; border-radius: 100px; font-size: 0.78rem; }
+
+  .about-section { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .about-visual { position: relative; }
+  .about-photo-frame { aspect-ratio: 3/4; border-radius: 24px; overflow: hidden; position: relative; }
+  .about-photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+  .about-photo-placeholder { width: 100%; min-height: 480px; background: linear-gradient(135deg, #2d1b69, #534AB7); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.15); font-family: 'Syne', sans-serif; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; }
+  .sticker { position: absolute; background: white; border-radius: 12px; padding: 10px 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
+  .sticker-1 { bottom: -20px; left: -30px; background: var(--yellow); color: var(--ink); transform: rotate(-4deg); }
+  .sticker-2 { top: 30px; right: -25px; background: var(--coral); color: white; transform: rotate(3deg); font-size: 0.8rem; }
+  .sticker-3 { top: 45%; left: -35px; background: var(--teal); color: white; transform: rotate(-2deg); font-size: 0.75rem; padding: 8px 12px; }
+
+  .about-text p { font-weight: 300; line-height: 1.9; color: #444; margin-bottom: 1.2rem; font-size: 1rem; }
+  .skills-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+  .skill-pill { padding: 6px 16px; border-radius: 100px; font-size: 0.82rem; font-weight: 400; border: 1.5px solid; transition: all 0.2s; cursor: none; }
+  .skill-pill:hover { transform: translateY(-2px); }
+  .skill-pill.coral { border-color: var(--coral); color: var(--coral); background: var(--coral-light); }
+  .skill-pill.teal { border-color: var(--teal); color: var(--teal); background: var(--teal-light); }
+  .skill-pill.yellow { border-color: var(--yellow); color: #854F0B; background: var(--yellow-light); }
+  .skill-pill.purple { border-color: var(--purple); color: var(--purple); background: var(--purple-light); }
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--coral); letter-spacing: -0.04em; line-height: 1; }
+  .stat-label { font-size: 0.82rem; color: #888; margin-top: 4px; font-weight: 300; }
+
+  .services-section { background: var(--ink); color: white; }
+  .services-section .section-label { color: #666; }
+  .services-section .section-title { color: white; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #333; border: 1px solid #333; border-radius: 16px; overflow: hidden; margin-top: 3rem; }
+  .service-card { background: #111; padding: 2.5rem 2rem; transition: background 0.3s; cursor: none; }
+  .service-card:hover { background: #1a1a1a; }
+  .service-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1.5rem; }
+  .icon-coral { background: var(--coral-light); } .icon-teal { background: var(--teal-light); } .icon-yellow { background: var(--yellow-light); } .icon-purple { background: var(--purple-light); } .icon-blue { background: #E6F1FB; } .icon-pink { background: #FBEAF0; }
+  .service-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.8rem; }
+  .service-desc { font-size: 0.88rem; color: #777; line-height: 1.7; font-weight: 300; }
+
+  .contact-section { display: grid; grid-template-columns: 1.2fr 1fr; gap: 6rem; align-items: start; }
+  .contact-left p { color: #666; font-weight: 300; line-height: 1.8; margin-bottom: 2rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.5rem; background: white; border-radius: 12px; border: 1px solid rgba(0,0,0,0.07); text-decoration: none; color: var(--ink); transition: all 0.2s; font-size: 0.9rem; cursor: none; }
+  .contact-link:hover { border-color: var(--coral); transform: translateX(6px); }
+  .contact-link-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+  .contact-link-label { font-weight: 300; color: #888; font-size: 0.75rem; }
+  .contact-link-value { font-weight: 400; margin-top: 1px; }
+  .contact-form-card { background: white; border-radius: 20px; padding: 2.5rem; border: 1px solid rgba(0,0,0,0.07); }
+  .form-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.2rem; margin-bottom: 1.5rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-label { display: block; font-size: 0.78rem; letter-spacing: 0.08em; color: #888; margin-bottom: 0.4rem; text-transform: uppercase; }
+  .form-input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid rgba(0,0,0,0.1); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; transition: border-color 0.2s; outline: none; background: var(--cream); cursor: text; }
+  .form-input:focus { border-color: var(--coral); }
+  .form-textarea { min-height: 100px; resize: vertical; }
+  .form-submit { width: 100%; padding: 0.9rem; background: var(--ink); color: white; border: none; border-radius: 100px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; cursor: none; transition: background 0.2s; margin-top: 0.5rem; }
+  .form-submit:hover { background: var(--coral); }
+
+  footer { padding: 2rem 3rem; border-top: 1px solid rgba(0,0,0,0.07); display: flex; justify-content: space-between; align-items: center; color: #999; font-size: 0.82rem; font-weight: 300; }
+
+  @keyframes slideIn { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateX(-50%) translateY(10px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.2rem; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    .works-grid { grid-template-columns: 1fr; }
+    .work-card.large, .work-card.medium, .work-card.wide { grid-column: span 1; }
+    .about-section, .contact-section { grid-template-columns: 1fr; gap: 3rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .sticker-1, .sticker-2, .sticker-3 { display: none; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="#home" class="logo">[Nama<span>.</span>]</a>
+  <ul class="nav-links">
+    <li><a href="#work">Karya</a></li>
+    <li><a href="#about">Tentang</a></li>
+    <li><a href="#services">Layanan</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-bg-shape shape1"></div>
+  <div class="hero-bg-shape shape2"></div>
+  <div class="hero-bg-shape shape3"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Tersedia untuk proyek baru</div>
+    <h1>Foto.<br><span class="highlight">Cerita.</span><br>Konten.</h1>
+    <p class="hero-desc">Fotografer, videografer, dan content creator yang mengabadikan momen menjadi narasi visual yang tak terlupakan.</p>
+    <div class="hero-cta">
+      <a href="#work" class="btn-primary">Lihat Karya →</a>
+      <a href="#contact" class="btn-secondary">Hubungi Saya</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item">FOTOGRAFI<span class="marquee-dot">✦</span></div>
+    <div class="marquee-item">VIDEOGRAFI<span class="marquee-dot">✦</span></div>
+    <div class="marquee-item">CONTENT CREATION<span class="marquee-dot">✦</span></div>
+    <div class="marquee-item">STORYTELLING<span class="marquee-dot">✦</span></div>
+    <div class="marquee-item">BRANDING<span class="marquee-dot">✦</span></div>
+    <div class="marquee-item">SOCIAL MEDIA<span class="marquee-dot">✦</span></div>
+    <div class="marquee-item">FOTOGRAFI<span class="marquee-dot">✦</span></div>
+    <div class="marquee-item">VIDEOGRAFI<span class="marquee-dot">✦</span></div>
+    <div class="marquee-item">CONTENT CREATION<span class="marquee-dot">✦</span></div>
+    <div class="marquee-item">STORYTELLING<span class="marquee-dot">✦</span></div>
+    <div class="marquee-item">BRANDING<span class="marquee-dot">✦</span></div>
+    <div class="marquee-item">SOCIAL MEDIA<span class="marquee-dot">✦</span></div>
+  </div>
+</div>
+
+<section id="work">
+  <div class="reveal">
+    <p class="section-label">Portofolio</p>
+    <h2 class="section-title">Karya Pilihan</h2>
+  </div>
+  <div class="works-grid reveal">
+    <div class="work-card large">
+      <div class="work-img bg-dark1" style="min-height:300px;">
+        <div class="work-img-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="4" width="20" height="16" rx="2"/><circle cx="12" cy="12" r="4"/></svg>
+          <span>Ganti dengan foto terbaik kamu</span>
+        </div>
+        <div class="work-overlay"><span class="work-tag">FOTOGRAFI</span><div class="work-title-card">Judul Proyek #1</div></div>
+        <span class="work-badge">2024</span>
+      </div>
+    </div>
+    <div class="work-card medium">
+      <div class="work-img bg-dark2" style="min-height:300px;">
+        <div class="work-img-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polygon points="5,3 19,12 5,21"/></svg>
+          <span>Video / Reel kamu</span>
+        </div>
+        <div class="work-overlay"><span class="work-tag">VIDEO</span><div class="work-title-card">Judul Proyek #2</div></div>
+        <span class="work-badge">▶ Play</span>
+      </div>
+    </div>
+    <div class="work-card wide">
+      <div class="work-img bg-dark3" style="min-height:240px;">
+        <div class="work-img-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="4" width="20" height="16" rx="2"/><circle cx="12" cy="12" r="4"/></svg>
+          <span>Foto landscape / panorama</span>
+        </div>
+        <div class="work-overlay"><span class="work-tag">LANDSCAPE</span><div class="work-title-card">Judul Proyek #3</div></div>
+      </div>
+    </div>
+    <div class="work-card wide">
+      <div class="work-img bg-dark4" style="min-height:240px;">
+        <div class="work-img-placeholder">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Portrait / Editorial</span>
+        </div>
+        <div class="work-overlay"><span class="work-tag">PORTRAIT</span><div class="work-title-card">Judul Proyek #4</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" style="background: white;">
+  <div class="about-section reveal">
+    <div class="about-visual">
+      <div class="about-photo-frame">
+        <!-- GANTI: <img src="foto-kamu.jpg" alt="Nama Kamu"> -->
+        <div class="about-photo-placeholder">Foto kamu di sini</div>
+      </div>
+      <div class="sticker sticker-1">📸 Open for work!</div>
+      <div class="sticker sticker-2">Based in Jakarta</div>
+      <div class="sticker sticker-3">5★ Reviews</div>
+    </div>
+    <div class="about-text">
+      <p class="section-label">Tentang Saya</p>
+      <h2 class="section-title">Hei, saya<br>[Nama Kamu] 👋</h2>
+      <p>Saya adalah fotografer dan content creator berbasis di Jakarta yang passionate dalam menceritakan kisah melalui lensa dan tulisan.</p>
+      <p>Dengan pengalaman lebih dari X tahun, saya telah bekerja bersama brand-brand terkemuka dan membantu mereka membangun identitas visual yang kuat di era digital.</p>
+      <div class="stats-row">
+        <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">Klien Puas</div></div>
+        <div class="stat-item"><div class="stat-num">200+</div><div class="stat-label">Proyek Selesai</div></div>
+        <div class="stat-item"><div class="stat-num">5yr</div><div class="stat-label">Pengalaman</div></div>
+      </div>
+      <div class="skills-row">
+        <span class="skill-pill coral">Photography</span>
+        <span class="skill-pill teal">Videography</span>
+        <span class="skill-pill yellow">Content Writing</span>
+        <span class="skill-pill purple">Social Media</span>
+        <span class="skill-pill coral">Lightroom</span>
+        <span class="skill-pill teal">Premiere Pro</span>
+        <span class="skill-pill yellow">Copywriting</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services-section" id="services">
+  <div class="reveal">
+    <p class="section-label">Apa yang Saya Tawarkan</p>
+    <h2 class="section-title">Layanan</h2>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card"><div class="service-icon icon-coral">📷</div><div class="service-name">Fotografi Komersial</div><p class="service-desc">Product photography, brand campaign, editorial — setiap frame dirancang untuk bercerita dan menjual.</p></div>
+    <div class="service-card"><div class="service-icon icon-teal">🎬</div><div class="service-name">Videografi & Reels</div><p class="service-desc">Video brand, konten Instagram/TikTok, dokumentasi event yang engaging dan cinematic.</p></div>
+    <div class="service-card"><div class="service-icon icon-yellow">✍️</div><div class="service-name">Content Writing</div><p class="service-desc">Artikel blog, caption media sosial, copywriting yang voice-nya kuat dan relevan dengan audiensmu.</p></div>
+    <div class="service-card"><div class="service-icon icon-purple">📱</div><div class="service-name">Social Media Management</div><p class="service-desc">Strategi konten, jadwal posting, dan manajemen feed yang konsisten dan estetik.</p></div>
+    <div class="service-card"><div class="service-icon icon-blue">🎨</div><div class="service-name">Visual Branding</div><p class="service-desc">Membangun identitas visual brand — color palette, mood board, panduan style konten.</p></div>
+    <div class="service-card"><div class="service-icon icon-pink">🌟</div><div class="service-name">Influencer & Collab</div><p class="service-desc">Kerjasama brand deal, ulasan produk autentik, dan kampanye influencer berbasis data.</p></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-section reveal">
+    <div class="contact-left">
+      <p class="section-label">Kerja Sama</p>
+      <h2 class="section-title">Ada proyek?<br>Yuk ngobrol! ☕</h2>
+      <p>Saya selalu terbuka untuk proyek baru, kolaborasi kreatif, atau sekadar ngobrol tentang fotografi dan konten.</p>
+      <div class="contact-links">
+        <a href="mailto:hello@namamu.com" class="contact-link">
+          <div class="contact-link-icon" style="background:var(--coral-light);">✉️</div>
+          <div><div class="contact-link-label">Email</div><div class="contact-link-value">hello@namamu.com</div></div>
+        </a>
+        <a href="https://instagram.com/namainstagrammu" target="_blank" class="contact-link">
+          <div class="contact-link-icon" style="background:var(--teal-light);">📷</div>
+          <div><div class="contact-link-label">Instagram</div><div class="contact-link-value">@namainstagrammu</div></div>
+        </a>
+        <a href="https://linkedin.com/in/namamu" target="_blank" class="contact-link">
+          <div class="contact-link-icon" style="background:var(--yellow-light);">💼</div>
+          <div><div class="contact-link-label">LinkedIn</div><div class="contact-link-value">linkedin.com/in/namamu</div></div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form-card">
+      <div class="form-title">Kirim Pesan</div>
+      <!-- Hubungkan ke Formspree: ganti action dengan https://formspree.io/f/YOUR_ID -->
+      <form action="#" method="POST">
+        <div class="form-group"><label class="form-label">Nama</label><input type="text" name="name" class="form-input" placeholder="Nama lengkap kamu" required></div>
+        <div class="form-group"><label class="form-label">Email</label><input type="email" name="email" class="form-input" placeholder="email@kamu.com" required></div>
+        <div class="form-group"><label class="form-label">Jenis Proyek</label><input type="text" name="project_type" class="form-input" placeholder="Fotografi / Video / Content..."></div>
+        <div class="form-group"><label class="form-label">Ceritakan proyekmu</label><textarea name="message" class="form-input form-textarea" placeholder="Hei, saya butuh bantuan untuk..." required></textarea></div>
+        <button type="submit" class="form-submit">Kirim Pesan ✦</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2025 [Nama Kamu]. All rights reserved.</div>
+  <div>Made with ♥ in Jakarta</div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => { ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px'; }, 80);
+  });
+
+  document.querySelectorAll('a, button, .work-card, .service-card, .contact-link, .skill-pill').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2)'; ring.style.opacity = '0.3'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.opacity = '0.5'; });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 100);
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
